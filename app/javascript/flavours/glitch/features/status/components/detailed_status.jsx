@@ -325,7 +325,7 @@ class DetailedStatus extends ImmutablePureComponent {
           <div className='detailed-status__meta'>
             <div className='detailed-status__meta__line'>
               <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
-                <FormattedDate value={new Date(status.get('created_at'))} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
+                <FormattedDate hourCycle='h23' value={new Date(status.get('created_at'))} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
               </a>
 
               {visibilityLink}

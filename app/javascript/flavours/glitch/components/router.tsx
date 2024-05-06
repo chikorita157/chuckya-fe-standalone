@@ -49,24 +49,12 @@ function normalizePath(
     );
   }
 
-  if (
-    layoutFromWindow() === 'multi-column' &&
-    !location.pathname?.startsWith('/deck')
-  ) {
-    location.pathname = `/deck${location.pathname}`;
+  if (layoutFromWindow() === 'multi-column' && !path.startsWith('/deck')) {
+    originalPush(`/deck${path}`, state);
+  } else {
+    originalPush(path, state);
   }
-
-  return location;
 }
-
-browserHistory.push = (path: HistoryPath, state?: MastodonLocationState) => {
-  const location = normalizePath(path, state);
-
-  location.state = location.state ?? {};
-  location.state.fromMastodon = true;
-
-  originalPush(location);
-};
 
 browserHistory.replace = (path: HistoryPath, state?: MastodonLocationState) => {
   const location = normalizePath(path, state);
@@ -78,7 +66,7 @@ browserHistory.replace = (path: HistoryPath, state?: MastodonLocationState) => {
     location.state.fromMastodon = true;
   }
 
-  originalReplace(location);
+  originalReplace(path, state);
 };
 
 export const Router: React.FC<PropsWithChildren> = ({ children }) => {

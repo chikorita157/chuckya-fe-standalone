@@ -65,7 +65,7 @@ class EditedTimestamp extends PureComponent {
     return (
       <DropdownMenu statusId={statusId} renderItem={this.renderItem} scrollable renderHeader={this.renderHeader} onItemClick={this.handleItemClick}>
         <button className='dropdown-menu__text-button'>
-          <FormattedMessage id='status.edited' defaultMessage='Edited {date}' values={{ date: <span className='animated-number'>{intl.formatDate(timestamp, { month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</span> }} />
+          <FormattedMessage id='status.edited' defaultMessage='Edited {date}' values={{ date: <span className='animated-number'>{intl.formatDate(timestamp, { hourCycle: 'h23', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</span> }} />
         </button>
       </DropdownMenu>
     );

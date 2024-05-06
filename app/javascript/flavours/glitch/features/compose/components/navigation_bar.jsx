@@ -11,6 +11,7 @@ import { IconButton } from 'flavours/glitch/components/icon_button';
 import { me } from 'flavours/glitch/initial_state';
 
 import { ActionBar } from './action_bar';
+import initialState from 'mastodon/initial_state';
 
 
 const messages = defineMessages({

@@ -91,7 +91,7 @@ class LocalSettingsNavigation extends PureComponent {
         <LocalSettingsNavigationItem
           active={index === 6}
           className='close'
-          index={6}
+          index={5}
           onNavigate={onClose}
           icon='times'
           iconComponent={CloseIcon}
