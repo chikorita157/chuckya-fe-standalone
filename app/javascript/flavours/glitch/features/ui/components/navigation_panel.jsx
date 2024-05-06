@@ -116,25 +116,8 @@ class NavigationPanel extends Component {
     const { intl, onOpenSettings } = this.props;
     const { signedIn, disabledAccountId } = this.context.identity;
 
-    let banner = undefined;
-
-    if(transientSingleColumn)
-      banner = (<div className='switch-to-advanced'>
-        {intl.formatMessage(messages.openedInClassicInterface)}
-        {" "}
-        <a href={`/deck${location.pathname}`} className='switch-to-advanced__toggle'>
-          {intl.formatMessage(messages.advancedInterface)}
-        </a>
-      </div>);
-
     return (
       <div className='navigation-panel'>
-        {banner &&
-          <div className='navigation-panel__banner'>
-            {banner}
-          </div>
-        }
-
         {signedIn && (
           <>
             <ColumnLink transparent to='/home' icon='home' iconComponent={HomeIcon} activeIconComponent={HomeActiveIcon} text={intl.formatMessage(messages.home)} />
