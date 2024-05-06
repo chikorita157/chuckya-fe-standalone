@@ -569,7 +569,7 @@
   "privacy.public.short": "Public",
   "privacy.unlisted.additional": "It acte just quam public, except que li posta ne va aparir in tendentie o hashtags, explorar, o sercha de Mastodon, mem si tu ha optet por les sur tui tot conto.",
   "privacy.unlisted.long": "Minu fanfare algoritmic",
-  "privacy.unlisted.short": "Quiet public",
+  "privacy.unlisted.short": "Unlisted",
   "privacy_policy.last_updated": "Ultimmen actualisat ye {date}",
   "privacy_policy.title": "Politica pri Privatie",
   "recommended": "Recomandat",

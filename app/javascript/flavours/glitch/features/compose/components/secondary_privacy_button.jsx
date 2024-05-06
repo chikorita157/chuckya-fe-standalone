@@ -11,7 +11,7 @@ import { Icon } from 'flavours/glitch/components/icon';
 
 const messages = defineMessages({
   public: { id: 'privacy.public.short', defaultMessage: 'Public' },
-  unlisted: { id: 'privacy.unlisted.short', defaultMessage: 'Quiet public' },
+  unlisted: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
   private: { id: 'privacy.private.short', defaultMessage: 'Followers' },
   direct: { id: 'privacy.direct.short', defaultMessage: 'Specific people' },
 });
