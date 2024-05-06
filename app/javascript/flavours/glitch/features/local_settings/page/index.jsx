@@ -169,6 +169,15 @@ class LocalSettingsPage extends PureComponent {
             <FormattedMessage id='settings.wide_view' defaultMessage='Wide view (Desktop mode only)' />
             <span className='hint'><FormattedMessage id='settings.wide_view_hint' defaultMessage='Stretches columns to better fill the available space.' /></span>
           </LocalSettingsPageItem>
+          <LocalSettingsPageItem
+            settings={settings}
+            item={['single_column']}
+            id='mastodon-settings--single_column'
+            onChange={onChange}
+          >
+            <FormattedMessage id='settings.single_column' defaultMessage='Single column (Desktop mode only)' />
+            <span className='hint'>Takes effect after a refresh.</span>
+          </LocalSettingsPageItem>
         </section>
       </div>
     ),

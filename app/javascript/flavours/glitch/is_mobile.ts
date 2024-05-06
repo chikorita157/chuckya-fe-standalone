@@ -1,18 +1,18 @@
 import { supportsPassiveEvents } from 'detect-passive-events';
 
-import { forceSingleColumn, hasMultiColumnPath } from './initial_state';
+import { isSingleColumn } from './initial_state';
 
 const LAYOUT_BREAKPOINT = 630;
 
 export const isMobile = (width: number) => width <= LAYOUT_BREAKPOINT;
 
-export const transientSingleColumn = !forceSingleColumn && !hasMultiColumnPath;
+export const transientSingleColumn = isSingleColumn;
 
 export type LayoutType = 'mobile' | 'single-column' | 'multi-column';
 export const layoutFromWindow = (): LayoutType => {
   if (isMobile(window.innerWidth)) {
     return 'mobile';
-  } else if (!forceSingleColumn && !transientSingleColumn) {
+  } else if (!isSingleColumn) {
     return 'multi-column';
   } else {
     return 'single-column';

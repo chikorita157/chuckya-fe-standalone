@@ -11,35 +11,39 @@ async function loadState() {
   }
 
   if (storedState && window.location.pathname !== '/prepare.html') {
-    document.getElementById('initial-state').textContent = storedState;
+    const isEl = document.getElementById('initial-state')
+    if (isEl) {
+      isEl.textContent = storedState;
+      return;
+    }
   }
 
   const apiUrl = `https://${domain}/api`;
   const instance = await fetch(`${apiUrl}/v1/instance`).then(async p => await p.json());
-  const options = {headers: {Authorization: `Bearer ${access_token}`}};
+  const options = { headers: { Authorization: `Bearer ${access_token}` } };
   const credentials = await fetch(`${apiUrl}/v1/accounts/verify_credentials`, options).then(async p => await p.json());
   const state = {
     "accounts": {
-      "plc":{
-        "accepts_direct_messages_from":"everybody",
+      "plc": {
+        "accepts_direct_messages_from": "everybody",
         "acct": credentials.acct,
         "avatar": credentials.avatar,
         "avatar_static": credentials.avatar_static,
         "bot": credentials.bot,
         "created_at": credentials.created_at,
         "display_name": credentials.display_name,
-        "emojis":[],
-        "fields":[],
-        "follow_requests_count":0,
+        "emojis": [],
+        "fields": [],
+        "follow_requests_count": 0,
         "followers_count": credentials.followers_count,
         "following_count": credentials.following_count,
-        "fqn":`${credentials.acct}@${domain}`,
+        "fqn": `${credentials.acct}@${domain}`,
         "header": credentials.header,
         "header_static": credentials.header_static,
         "id": credentials.id,
         "last_status_at": credentials.created_at,
         "locked": credentials.locked,
-        "note":"",
+        "note": "",
         "source": credentials.source,
         "statuses_count": credentials.statuses_count,
         "url": credentials.url,
@@ -98,7 +102,7 @@ async function loadState() {
         "en": 1
       }
     },
-    "languages":[
+    "languages": [
       [
         "aa",
         "Afar",
