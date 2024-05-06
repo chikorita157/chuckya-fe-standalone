@@ -82,7 +82,7 @@ async function loadState() {
       "streaming_api_base_url": `wss://${domain}`,
       "title": `${instance.title}`,
       "unfollow_modal": true,
-      "source_url": 'https://iceshrimp.dev/iceshrimp/masto-fe-standalone',
+      "source_url": 'https://iceshrimp.dev/ShittyKopper/Chuckya-fe-standalone',
       "version": instance.version
     },
     "max_toot_chars": instance.configuration.statuses.max_characters,
