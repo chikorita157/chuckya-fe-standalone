@@ -55,6 +55,8 @@ async function loadState() {
       "allow_content_types": [
         "text/x.misskeymarkdown"
       ],
+      "default_language": "en",
+      "text": "",
       "default_privacy": credentials.source.privacy,
       "default_sensitive": credentials.source.sensitive,
       "me": credentials.id
@@ -83,9 +85,30 @@ async function loadState() {
       "title": `${instance.title}`,
       "unfollow_modal": true,
       "source_url": 'https://iceshrimp.dev/ShittyKopper/Chuckya-fe-standalone',
-      "version": instance.version
+      "version": instance.version,
+      "activity_api_enabled": false,
+      "default_content_type": "text/x.misskeymarkdown",
+      "favorite_modal": false,
+      "limited_federation_mode": false, // TODO: get from instance data?
+      "expand_spoilers": false,
+      "display_media": "default",
+      "profile_directory": false,
+      "registrations_open": false, // TODO: get from instance data?
+      "search_enabled": true,
+      "show_trends": false,
+      "single_user_mode": false,
+      "sso_redirect": null,
+      "system_emoji_font": false,
+      "timeline_preview": true,
+      "trends_as_landing_page": false,
+      "trends_enabled": false,
+      "use_blurhash": true,
+      "use_pending_items": false,
+      "visible_reactions": Number.MAX_SAFE_INTEGER, // bad idea?
     },
     "max_toot_chars": instance.configuration.statuses.max_characters,
+    "max_feed_hashtags": 4,
+    "max_reactions": Number.MAX_SAFE_INTEGER,
     "poll_limits": {
       "max_expiration": instance.configuration.polls.max_expiration,
       "max_option_chars": instance.configuration.polls.max_characters_per_option,
