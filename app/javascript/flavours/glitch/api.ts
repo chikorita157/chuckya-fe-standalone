@@ -47,6 +47,11 @@ const authorizationHeaderFromState = (getState?: GetState) => {
   } as RawAxiosRequestHeaders;
 };
 
+const baseUrlFromState = (getState?: GetState) => {
+  const baseUrl = getState && getState().meta.get('base_url');
+  return `${baseUrl}`;
+};
+
 // eslint-disable-next-line import/no-default-export
 export default function api(getState: GetState) {
   return axios.create({
@@ -54,6 +59,8 @@ export default function api(getState: GetState) {
       ...csrfHeader,
       ...authorizationHeaderFromState(getState),
     },
+
+    baseURL: baseUrlFromState(getState),
 
     transformResponse: [
       function (data: unknown) {

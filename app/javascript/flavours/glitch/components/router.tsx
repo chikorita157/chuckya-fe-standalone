@@ -23,7 +23,6 @@ type LocationState = MastodonLocationState | null | undefined;
 type HistoryPath = Path | LocationDescriptor<LocationState>;
 
 const browserHistory = createBrowserHistory<LocationState>();
-const originalPush = browserHistory.push.bind(browserHistory);
 const originalReplace = browserHistory.replace.bind(browserHistory);
 
 export function useAppHistory() {
@@ -49,11 +48,7 @@ function normalizePath(
     );
   }
 
-  if (layoutFromWindow() === 'multi-column' && !path.startsWith('/deck')) {
-    originalPush(`/deck${path}`, state);
-  } else {
-    originalPush(path, state);
-  }
+  return location;
 }
 
 browserHistory.replace = (path: HistoryPath, state?: MastodonLocationState) => {

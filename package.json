@@ -10,6 +10,7 @@
     "streaming"
   ],
   "scripts": {
+    "watch": "cross-env NODE_ENV=development webpack --config config/webpack/development.js --watch",
     "build:development": "cross-env NODE_ENV=development webpack --config config/webpack/development.js",
     "build:production": "cross-env NODE_ENV=production webpack --config config/webpack/production.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack/production.js",
