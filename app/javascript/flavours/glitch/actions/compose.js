@@ -211,7 +211,7 @@ export function submitCompose(routerHistory, overridePrivacy = null) {
       });
     }
 
-    api(getState).request({
+    api().request({
       url: statusId === null ? '/api/v1/statuses' : `/api/v1/statuses/${statusId}`,
       method: statusId === null ? 'post' : 'put',
       data: {
@@ -317,7 +317,7 @@ export function tenorSet(options) {
 
 export function uploadCompose(files, alt = '') {
   return function (dispatch, getState) {
-    const uploadLimit = 4;
+    const uploadLimit = getState().getIn(['server', 'server', 'configuration', 'statuses', 'max_media_attachments']);
     const media = getState().getIn(['compose', 'media_attachments']);
     const pending = getState().getIn(['compose', 'pending_media_attachments']);
     const progress = new Array(files.length).fill(0);
@@ -332,7 +332,7 @@ export function uploadCompose(files, alt = '') {
     dispatch(uploadComposeRequest());
 
     for (const [i, f] of Array.from(files).entries()) {
-      if (media.size + i > 3) break;
+      if (media.size + i > (uploadLimit - 1)) break;
 
       resizeImage(f).then(file => {
         const data = new FormData();
@@ -341,7 +341,7 @@ export function uploadCompose(files, alt = '') {
         // Account for disparity in size of original image and resized data
         total += file.size - f.size;
 
-        return api(getState).post('/api/v2/media', data, {
+        return api().post('/api/v2/media', data, {
           onUploadProgress: function({ loaded }){
             progress[i] = loaded;
             dispatch(uploadComposeProgress(progress.reduce((a, v) => a + v, 0), total));
@@ -358,7 +358,7 @@ export function uploadCompose(files, alt = '') {
             let tryCount = 1;
 
             const poll = () => {
-              api(getState).get(`/api/v1/media/${data.id}`).then(response => {
+              api().get(`/api/v1/media/${data.id}`).then(response => {
                 if (response.status === 200) {
                   dispatch(uploadComposeSuccess(response.data, f));
                 } else if (response.status === 206) {
@@ -381,7 +381,7 @@ export const uploadComposeProcessing = () => ({
   type: COMPOSE_UPLOAD_PROCESSING,
 });
 
-export const uploadThumbnail = (id, file) => (dispatch, getState) => {
+export const uploadThumbnail = (id, file) => (dispatch) => {
   dispatch(uploadThumbnailRequest());
 
   const total = file.size;
@@ -389,7 +389,7 @@ export const uploadThumbnail = (id, file) => (dispatch, getState) => {
 
   data.append('thumbnail', file);
 
-  api(getState).put(`/api/v1/media/${id}`, data, {
+  api().put(`/api/v1/media/${id}`, data, {
     onUploadProgress: ({ loaded }) => {
       dispatch(uploadThumbnailProgress(loaded, total));
     },
@@ -472,7 +472,7 @@ export function changeUploadCompose(id, params) {
 
       dispatch(changeUploadComposeSuccess(data, true));
     } else {
-      api(getState).put(`/api/v1/media/${id}`, params).then(response => {
+      api().put(`/api/v1/media/${id}`, params).then(response => {
         dispatch(changeUploadComposeSuccess(response.data, false));
       }).catch(error => {
         dispatch(changeUploadComposeFail(id, error));
@@ -560,7 +560,7 @@ const fetchComposeSuggestionsAccounts = throttle((dispatch, getState, token) => 
 
   fetchComposeSuggestionsAccountsController = new AbortController();
 
-  api(getState).get('/api/v1/accounts/search', {
+  api().get('/api/v1/accounts/search', {
     signal: fetchComposeSuggestionsAccountsController.signal,
 
     params: {
@@ -594,7 +594,7 @@ const fetchComposeSuggestionsTags = throttle((dispatch, getState, token) => {
 
   fetchComposeSuggestionsTagsController = new AbortController();
 
-  api(getState).get('/api/v2/search', {
+  api().get('/api/v2/search', {
     signal: fetchComposeSuggestionsTagsController.signal,
 
     params: {

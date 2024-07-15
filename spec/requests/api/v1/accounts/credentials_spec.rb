@@ -29,8 +29,8 @@ RSpec.describe 'credentials API' do
       })
     end
 
-    describe 'allows the read:me scope' do
-      let(:scopes) { 'read:me' }
+    describe 'allows the profile scope' do
+      let(:scopes) { 'profile' }
 
       it 'returns the response successfully' do
         subject
@@ -79,7 +79,7 @@ RSpec.describe 'credentials API' do
     end
 
     describe 'with invalid data' do
-      let(:params) { { note: "This is too long. #{'a' * Account::MAX_NOTE_LENGTH}" } }
+      let(:params) { { note: "This is too long. #{'a' * Account::NOTE_LENGTH_LIMIT}" } }
 
       it 'returns http unprocessable entity' do
         subject
