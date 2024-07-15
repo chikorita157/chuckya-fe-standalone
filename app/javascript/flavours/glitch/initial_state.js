@@ -161,4 +161,11 @@ export function getAccessToken() {
 // Standalone-specific settings
 export const isSingleColumn = !forceSingleColumn && (initialState?.local_settings?.single_column ?? !hasMultiColumnPath);
 
+/**
+ * @returns {string | undefined}
+ */
+export function getBaseUrl() {
+  return getMeta('base_url');
+}
+
 export default initialState;

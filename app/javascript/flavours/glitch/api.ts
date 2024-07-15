@@ -2,7 +2,7 @@ import type { AxiosResponse, Method, RawAxiosRequestHeaders } from 'axios';
 import axios from 'axios';
 import LinkHeader from 'http-link-header';
 
-import { getAccessToken } from './initial_state';
+import { getAccessToken, getBaseUrl } from './initial_state';
 import ready from './ready';
 
 export const getLinks = (response: AxiosResponse) => {
@@ -39,11 +39,6 @@ const authorizationTokenFromInitialState = (): RawAxiosRequestHeaders => {
   };
 };
 
-const baseUrlFromState = (getState?: GetState) => {
-  const baseUrl = getState && getState().meta.get('base_url');
-  return `${baseUrl}`;
-};
-
 // eslint-disable-next-line import/no-default-export
 export default function api(withAuthorization = true) {
   return axios.create({
@@ -52,7 +47,7 @@ export default function api(withAuthorization = true) {
       ...(withAuthorization ? authorizationTokenFromInitialState() : {}),
     },
 
-    baseURL: baseUrlFromState(getState),
+    baseURL: getBaseUrl(),
 
     transformResponse: [
       function (data: unknown) {
