@@ -33,6 +33,8 @@ const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   redraft: { id: 'status.redraft', defaultMessage: 'Delete & re-draft' },
   edit: { id: 'status.edit', defaultMessage: 'Edit' },
+  bite: { id: 'status.bite', defaultMessage: 'Bite post' },
+  biteUser: { id: 'account.bite', defaultMessage: 'Bite @{name}' },
   direct: { id: 'status.direct', defaultMessage: 'Privately mention @{name}' },
   mention: { id: 'status.mention', defaultMessage: 'Mention @{name}' },
   reply: { id: 'status.reply', defaultMessage: 'Reply' },
@@ -73,6 +75,8 @@ class ActionBar extends PureComponent {
     onEdit: PropTypes.func.isRequired,
     onDirect: PropTypes.func.isRequired,
     onMention: PropTypes.func.isRequired,
+    onBite: PropTypes.func,
+    onBiteUser: PropTypes.func,
     onMute: PropTypes.func,
     onBlock: PropTypes.func,
     onMuteConversation: PropTypes.func,
@@ -120,6 +124,14 @@ class ActionBar extends PureComponent {
 
   handleMentionClick = () => {
     this.props.onMention(this.props.status.get('account'));
+  };
+
+  handleBiteClick = () => {
+    this.props.onBite(this.props.status.get('id'));
+  };
+
+  handleBiteUserClick = () => {
+    this.props.onBiteUser(this.props.status.getIn(['account', 'id']));
   };
 
   handleMuteClick = () => {
@@ -198,9 +210,14 @@ class ActionBar extends PureComponent {
         menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick, dangerous: true });
         menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick, dangerous: true });
       } else {
+        menu.push({ text: intl.formatMessage(messages.bite), action: this.handleBiteClick });
+        menu.push({ text: intl.formatMessage(messages.biteUser, { name: status.getIn(['account', 'username']) }), action: this.handleBiteUserClick });
+        menu.push(null);
+
         menu.push({ text: intl.formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
         menu.push({ text: intl.formatMessage(messages.direct, { name: status.getIn(['account', 'username']) }), action: this.handleDirectClick });
         menu.push(null);
+
         menu.push({ text: intl.formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }), action: this.handleMuteClick, dangerous: true });
         menu.push({ text: intl.formatMessage(messages.block, { name: status.getIn(['account', 'username']) }), action: this.handleBlockClick, dangerous: true });
         menu.push({ text: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }), action: this.handleReport, dangerous: true });

@@ -17,7 +17,7 @@ import {
   pin,
   unpin,
   addReaction,
-  removeReaction,
+  removeReaction, bite, biteUser,
 } from 'flavours/glitch/actions/interactions';
 import { openModal } from 'flavours/glitch/actions/modal';
 import { initMuteModal } from 'flavours/glitch/actions/mutes';
@@ -157,6 +157,14 @@ const mapDispatchToProps = (dispatch, { contextType }) => ({
 
   onDirect (account) {
     dispatch(directCompose(account));
+  },
+
+  onBite (statusId) {
+    dispatch(bite(statusId));
+  },
+
+  onBiteUser (accountId) {
+    dispatch(biteUser(accountId));
   },
 
   onMention (account) {

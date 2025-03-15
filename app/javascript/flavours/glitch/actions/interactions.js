@@ -47,6 +47,14 @@ export const UNBOOKMARK_REQUEST = 'UNBOOKMARKED_REQUEST';
 export const UNBOOKMARK_SUCCESS = 'UNBOOKMARKED_SUCCESS';
 export const UNBOOKMARK_FAIL    = 'UNBOOKMARKED_FAIL';
 
+export const BITE_REQUEST = 'BITE_REQUEST';
+export const BITE_REQUEST_SUCCESS = 'BITE_REQUEST_SUCCESS';
+export const BITE_REQUEST_FAIL = 'BITE_REQUEST_FAIL';
+
+export const BITE_USER_REQUEST = 'BITE_USER_REQUEST';
+export const BITE_USER_REQUEST_SUCCESS = 'BITE_USER_REQUEST_SUCCESS';
+export const BITE_USER_REQUEST_FAIL = 'BITE_USER_REQUEST_FAIL';
+
 export const REACTION_UPDATE = 'REACTION_UPDATE';
 
 export const REACTION_ADD_REQUEST = 'REACTION_ADD_REQUEST';
@@ -502,6 +510,80 @@ export function toggleFavourite(statusId, skipModal = false) {
         dispatch(favourite(status));
       }
     }
+  };
+}
+
+export function bite(statusId) {
+  return (dispatch) => {
+    dispatch(biteRequest(statusId));
+
+    api().post(`/api/v1/statuses/${statusId}/bite`).then(function () {
+      dispatch(biteRequestSuccess(statusId));
+    }).catch(function (error) {
+      dispatch(biteRequestFail(statusId, error));
+    });
+  };
+}
+
+export function biteRequest(statusId) {
+  return {
+    type: BITE_REQUEST,
+    status: statusId,
+    skipLoading: true,
+  };
+}
+
+export function biteRequestSuccess(statusId) {
+  return {
+    type: BITE_REQUEST_SUCCESS,
+    status: statusId,
+    skipLoading: true,
+  };
+}
+
+export function biteRequestFail(statusId, error) {
+  return {
+    type: BITE_REQUEST_FAIL,
+    status: statusId,
+    error: error,
+    skipLoading: true,
+  };
+}
+
+export function biteUser(accountId) {
+  return (dispatch) => {
+    dispatch(biteUserRequest(accountId));
+
+    api().post(`/api/v1/users/${accountId}/bite`).then(function () {
+      dispatch(biteUserRequestSuccess(accountId));
+    }).catch(function (error) {
+      dispatch(biteUserRequestFail(accountId, error));
+    });
+  };
+}
+
+export function biteUserRequest(accountId) {
+  return {
+    type: BITE_USER_REQUEST,
+    status: accountId,
+    skipLoading: true,
+  };
+}
+
+export function biteUserRequestSuccess(accountId) {
+  return {
+    type: BITE_USER_REQUEST_SUCCESS,
+    status: accountId,
+    skipLoading: true,
+  };
+}
+
+export function biteUserRequestFail(accountId, error) {
+  return {
+    type: BITE_USER_REQUEST_FAIL,
+    status: accountId,
+    error: error,
+    skipLoading: true,
   };
 }
 

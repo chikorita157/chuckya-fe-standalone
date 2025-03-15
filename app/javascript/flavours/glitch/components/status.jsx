@@ -93,6 +93,8 @@ class Status extends ImmutablePureComponent {
     onBookmark: PropTypes.func,
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
+    onBite: PropTypes.func,
+    onBiteUser: PropTypes.func,
     onMention: PropTypes.func,
     onReactionAdd: PropTypes.func,
     onReactionRemove: PropTypes.func,

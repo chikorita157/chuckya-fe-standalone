@@ -13,7 +13,7 @@ import {
   toggleReblog,
   toggleFavourite,
   pin,
-  unpin,
+  unpin, bite, biteUser,
 } from '../../../actions/interactions';
 import { openModal } from '../../../actions/modal';
 import { initMuteModal } from '../../../actions/mutes';
@@ -92,6 +92,14 @@ const mapDispatchToProps = (dispatch) => ({
 
   onMention (account) {
     dispatch(mentionCompose(account));
+  },
+
+  onBite (statusId) {
+    dispatch(bite(statusId));
+  },
+
+  onBiteUser (accountId) {
+    dispatch(biteUser(accountId));
   },
 
   onOpenMedia (media, index, lang) {

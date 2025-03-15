@@ -1,6 +1,7 @@
 # with harper's tweaks
 
 - added bite notification support
+- add bite user and bite status buttons on status and status detailed components
 
 # Chuckya (standalone frontend)
 

@@ -39,7 +39,7 @@ import {
   pin,
   unpin,
   addReaction,
-  removeReaction,
+  removeReaction, bite, biteUser,
 } from '../../actions/interactions';
 import { openModal } from '../../actions/modal';
 import { initMuteModal } from '../../actions/mutes';
@@ -375,6 +375,14 @@ class Status extends ImmutablePureComponent {
 
   handleMentionClick = (account) => {
     this.props.dispatch(mentionCompose(account));
+  };
+
+  handleBiteClick = (statusId) => {
+    this.props.dispatch(bite(statusId));
+  };
+
+  handleBiteUserClick = (accountId) => {
+    this.props.dispatch(biteUser(accountId));
   };
 
   handleOpenMedia = (media, index, lang) => {
@@ -731,6 +739,8 @@ class Status extends ImmutablePureComponent {
                   onEdit={this.handleEditClick}
                   onDirect={this.handleDirectClick}
                   onMention={this.handleMentionClick}
+                  onBite={this.handleBiteClick}
+                  onBiteUser={this.handleBiteUserClick}
                   onMute={this.handleMuteClick}
                   onMuteConversation={this.handleConversationMuteClick}
                   onBlock={this.handleBlockClick}
