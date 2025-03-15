@@ -6,6 +6,7 @@ import { fetchRelationships } from './accounts';
 import { importFetchedAccounts, importFetchedStatus } from './importer';
 import { unreblog, reblog } from './interactions_typed';
 import { openModal } from './modal';
+import {showAlert} from "flavours/glitch/actions/alerts";
 
 export const REBLOGS_EXPAND_REQUEST = 'REBLOGS_EXPAND_REQUEST';
 export const REBLOGS_EXPAND_SUCCESS = 'REBLOGS_EXPAND_SUCCESS';
@@ -519,6 +520,9 @@ export function bite(statusId) {
 
     api().post(`/api/v1/statuses/${statusId}/bite`).then(function () {
       dispatch(biteRequestSuccess(statusId));
+      dispatch(showAlert({
+        message: 'Bit status'
+      }));
     }).catch(function (error) {
       dispatch(biteRequestFail(statusId, error));
     });
@@ -551,11 +555,20 @@ export function biteRequestFail(statusId, error) {
 }
 
 export function biteUser(accountId) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    let account = state.accounts.get(accountId);
+
+    if (!account)
+      return;
+
     dispatch(biteUserRequest(accountId));
 
     api().post(`/api/v1/users/${accountId}/bite`).then(function () {
       dispatch(biteUserRequestSuccess(accountId));
+      dispatch(showAlert({
+        message: 'Bit @' + account.get('username')
+      }));
     }).catch(function (error) {
       dispatch(biteUserRequestFail(accountId, error));
     });
