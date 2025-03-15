@@ -44,6 +44,10 @@ export const showAlertForError = (error, skipNotFound = false) => {
       });
     }
 
+    // Reduce unnecessary popups for Iceshrimp.NET 501s
+    if (status === 501)
+      return null;
+
     return showAlert({
       title: `${status}`,
       message: data.error || statusText,

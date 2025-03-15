@@ -2,6 +2,7 @@
 
 - added bite notification support
 - add bite user and bite status buttons on status and status detailed components
+- don't alert for 501 api errors
 
 # Chuckya (standalone frontend)
 
