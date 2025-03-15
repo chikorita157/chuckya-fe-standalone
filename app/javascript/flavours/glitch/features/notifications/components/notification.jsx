@@ -13,6 +13,7 @@ import { HotKeys } from 'react-hotkeys';
 import FlagIcon from '@/material-icons/400-24px/flag-fill.svg?react';
 import PersonIcon from '@/material-icons/400-24px/person-fill.svg?react';
 import PersonAddIcon from '@/material-icons/400-24px/person_add-fill.svg?react';
+import Dentistry from '@/material-icons/400-24px/dentistry.svg?react';
 import { Icon }  from 'flavours/glitch/components/icon';
 import { Permalink } from 'flavours/glitch/components/permalink';
 import AccountContainer from 'flavours/glitch/containers/account_container';
@@ -27,6 +28,7 @@ import { RelationshipsSeveranceEvent } from './relationships_severance_event';
 import Report from './report';
 
 const messages = defineMessages({
+  bite: { id: 'notification.bite', defaultMessage: '{name} bit you' },
   follow: { id: 'notification.follow', defaultMessage: '{name} followed you' },
   adminSignUp: { id: 'notification.admin.sign_up', defaultMessage: '{name} signed up' },
   adminReport: { id: 'notification.admin.report', defaultMessage: '{name} reported {target}' },
@@ -116,6 +118,52 @@ class Notification extends ImmutablePureComponent {
       moveUp: this.handleMoveUp,
       moveDown: this.handleMoveDown,
     };
+  }
+
+  renderBiteUser (notification, account, link) {
+    const { intl, unread } = this.props;
+
+    return (
+      <HotKeys handlers={this.getHandlers()}>
+        <div className={classNames('notification notification-follow focusable', { unread })} tabIndex={0} aria-label={notificationForScreenReader(intl, intl.formatMessage(messages.follow, { name: account.get('acct') }), notification.get('created_at'))}>
+          <div className='notification__message'>
+            <Icon id='dentistry' icon={Dentistry} />
+
+            <span title={notification.get('created_at')}>
+              <FormattedMessage id='notification.bite' defaultMessage='{name} bit you' values={{ name: link }} />
+            </span>
+          </div>
+
+          <AccountContainer id={account.get('id')} hidden={this.props.hidden} />
+          <NotificationOverlayContainer notification={notification} />
+        </div>
+      </HotKeys>
+    );
+  }
+
+  renderBiteNote (notification) {
+    return (
+      <StatusContainer
+        containerId={notification.get('id')}
+        hidden={!!this.props.hidden}
+        id={notification.get('status')}
+        account={notification.get('account')}
+        prepend='bite'
+        muted
+        withDismiss
+        notification={notification}
+        onMoveDown={this.handleMoveDown}
+        onMoveUp={this.handleMoveUp}
+        onMention={this.props.onMention}
+        contextType='notifications'
+        getScrollPosition={this.props.getScrollPosition}
+        updateScrollBottom={this.props.updateScrollBottom}
+        cachedMediaWidth={this.props.cachedMediaWidth}
+        cacheMediaWidth={this.props.cacheMediaWidth}
+        onUnmount={this.props.onUnmount}
+        unread={this.props.unread}
+      />
+    );
   }
 
   renderFollow (notification, account, link) {
@@ -455,6 +503,8 @@ class Notification extends ImmutablePureComponent {
     );
 
     switch(notification.get('type')) {
+    case 'bite':
+      return notification.get('status') ? this.renderBiteNote(notification) : this.renderBiteUser(notification, account, link);
     case 'follow':
       return this.renderFollow(notification, account, link);
     case 'follow_request':

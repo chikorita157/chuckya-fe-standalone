@@ -13,6 +13,7 @@ import MoodIcon from '@/material-icons/400-24px/mood.svg?react';
 import PushPinIcon from '@/material-icons/400-24px/push_pin.svg?react';
 import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
 import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
+import DentistryIcon from '@/material-icons/400-24px/dentistry.svg?react';
 import { Icon } from 'flavours/glitch/components/icon';
 import { me } from 'flavours/glitch/initial_state';
 
@@ -51,6 +52,14 @@ export default class StatusPrepend extends PureComponent {
       </a>
     );
     switch (type) {
+    case 'bite':
+      return (
+        <FormattedMessage
+          id='notification.bite'
+          defaultMessage='{name} bit your status'
+          values={{ name: link }}
+        />
+      );
     case 'featured':
       return (
         <FormattedMessage id='status.pinned' defaultMessage='Pinned post' />
@@ -130,6 +139,10 @@ export default class StatusPrepend extends PureComponent {
     let iconId, iconComponent;
 
     switch(type) {
+    case 'bite':
+      iconId = 'dentistry';
+      iconComponent = DentistryIcon;
+      break;
     case 'favourite':
       iconId = 'star';
       iconComponent = StarIcon;

@@ -1,3 +1,7 @@
+# with harper's tweaks
+
+- added bite notification support
+
 # Chuckya (standalone frontend)
 
 This is a somewhat hacky fork of Chuckya that adds standalone support (based on https://iceshrimp.dev/iceshrimp/masto-fe-standalone) (meaning your browser can OAuth against an arbitrary instance). It's currently tested to work (for the most part) with Iceshrimp and Iceshrimp.NET.
