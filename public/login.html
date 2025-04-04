@@ -2,12 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login | Masto-FE standalone</title>
+    <title>Sakurajima Social Mastodon Frontend</title>
     <script src="/auth.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+    @import url("https://use.typekit.net/cjy0pnw.css");
+    body {
+      background-color: #B9D7D9;
+      background: -moz-linear-gradient(#B9D7D9, #A3BDBF);
+      background: -o-linear-gradient(#B9D7D9, #A3BDBF);
+      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#B9D7D9), to(#A3BDBF)); /* older webkit syntax */
+      background: -webkit-linear-gradient(#B9D7D9, #A3BDBF);
+      color: #333;
+      font: 13px myriad-pro, Helvetica, Arial, sans-serif;
+      font-weight: normal;
+      line-height: 22px;
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+    }
+    hr {
+    border: 1px solid #D1F2A5;
+    }
+    a,
+    a:visited {
+      color:#CB4E61;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #E96188;
+      text-decoration: underline;
+    }
+    #content {
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 0 5px #999;
+      margin: 50px auto;
+      padding: 8px;
+      width: 720px;
+    }
+    </style>
 </head>
 <body>
-<input type="text" id="instance" placeholder="yourinstance.tld">
-<button onclick="auth()" id="btn">Log in</button>
+  <div id="content">
+  <h2>Mastodon Frontend</h2>
+  <hr />
+  <p>To begin using the Mastodon Frontend with Sakurajima Social, click Authorize your Account.</p>
+<input type="hidden" id="instance" placeholder="sakurajima.social">
+<button onclick="auth()" id="btn">Authorize your Account</button>
 <span id="message"></span>
+</div>
 </body>
 </html>
