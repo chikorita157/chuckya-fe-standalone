@@ -50,7 +50,7 @@ async function loadState() {
         "username": credentials.acct
       }
     },
-    "char_limit": instance.configuration.statuses.max_characters,
+    "char_limit": 3000,
     "compose": {
       "allow_content_types": [
         "text/x.misskeymarkdown"
@@ -67,7 +67,7 @@ async function loadState() {
     "meta": {
       "access_token": access_token,
       "admin": "0",
-      "advanced_layout": true,
+      "advanced_layout": false,
       "auto_play_gif": false,
       "boost_modal": false,
       "compact_reaction": false,
@@ -84,7 +84,7 @@ async function loadState() {
       "streaming_api_base_url": `wss://${domain}`,
       "title": `${instance.title}`,
       "unfollow_modal": true,
-      "source_url": 'https://iceshrimp.dev/ShittyKopper/Chuckya-fe-standalone',
+      "source_url": 'https://github.com/chikorita157/chuckya-fe-standalone',
       "version": instance.version,
       "activity_api_enabled": false,
       "default_content_type": "text/x.misskeymarkdown",
