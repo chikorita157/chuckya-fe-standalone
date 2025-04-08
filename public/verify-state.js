@@ -106,7 +106,7 @@ async function loadState() {
       "use_pending_items": false,
       "visible_reactions": Number.MAX_SAFE_INTEGER, // bad idea?
     },
-    "max_toot_chars": instance.configuration.statuses.max_characters,
+    "max_toot_chars": 3000,
     "max_feed_hashtags": 4,
     "max_reactions": Number.MAX_SAFE_INTEGER,
     "poll_limits": {
